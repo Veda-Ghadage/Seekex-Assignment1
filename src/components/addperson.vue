@@ -111,6 +111,7 @@ export default {
         }
         const headers = {
           'User-Agent': 'googlebot',
+          'Access-Control-Allow-Origin': '*',
           'Content-Type': 'application/json'
         }
         axios.post('https://tekdi-challenges.appspot.com/api/People', article, { headers }).then((res) => {
