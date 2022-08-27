@@ -5,6 +5,13 @@
     style="margin-top: 50px; padding: 20px"
     outlined
   >
+  <v-alert
+      dense
+      type="success"
+      v-if="successmsg"
+    >
+      Details added successfully
+    </v-alert>
   <v-form
     ref="form"
     v-model="valid"
@@ -18,20 +25,21 @@
     ></v-text-field>
 
     <v-text-field
-      v-model="email"
-      :rules="emailRules"
-      label="E-mail"
+      v-model="salary"
+      :rules="salaryRules"
+      label="Salary"
       required
     ></v-text-field>
 
     <v-text-field
       v-model="age"
       :rules="ageRules"
+      type="number"
       label="Age"
       required
     ></v-text-field>
 
-    <v-text-field
+    <!-- <v-text-field
       v-model="country"
       :rules="countryRules"
       label="Country"
@@ -43,7 +51,7 @@
       :rules="avatarRules"
       label="Image"
       required
-    ></v-text-field>
+    ></v-text-field> -->
 
     <v-btn
       :disabled="!valid"
@@ -51,7 +59,7 @@
       class="mr-4"
       @click="validate"
     >
-      Validate
+      Submit
     </v-btn>
 
     <v-btn
@@ -72,13 +80,14 @@ import axios from 'axios'
 export default {
   data: () => ({
     valid: true,
+    successmsg: false,
     name: '',
     nameRules: [
       v => !!v || 'Name is required'
     ],
-    email: '',
-    emailRules: [
-      v => !!v || 'E-mail is required'
+    salary: '',
+    salaryRules: [
+      v => !!v || 'Salary is required'
     ],
     age: '',
     ageRules: [
@@ -102,20 +111,19 @@ export default {
         console.log(this.age)
         console.log(this.country)
         console.log(this.avatar)
-        const article = {
+        const empdata = {
           name: this.name,
-          email: this.email,
-          dob: this.age,
-          country: this.country,
-          avatar: this.avatar
+          salary: this.email,
+          age: this.age
         }
-        const headers = {
-          'User-Agent': 'googlebot',
-          'Access-Control-Allow-Origin': '*',
-          'Content-Type': 'application/json'
-        }
-        axios.post('https://tekdi-challenges.appspot.com/api/People', article, { headers }).then((res) => {
+        // const headers = {
+        //   'User-Agent': 'googlebot',
+        //   'Access-Control-Allow-Origin': '*',
+        //   'Content-Type': 'application/json'
+        // }
+        axios.post('https://dummy.restapiexample.com/api/v1/create', empdata).then((res) => {
           console.log(res)
+          this.successmsg = true
         }).catch((err) => {
           console.log(err)
         })
