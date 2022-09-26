@@ -25,9 +25,9 @@
     ></v-text-field>
 
     <v-text-field
-      v-model="salary"
-      :rules="salaryRules"
-      label="Salary"
+      v-model="colour"
+      :rules="colourRules"
+      label="Colour"
       required
     ></v-text-field>
 
@@ -67,7 +67,7 @@
       class="mr-4"
       @click="reset"
     >
-      Reset Form
+      Reset
     </v-btn>
 
   </v-form>
@@ -79,27 +79,20 @@ import axios from 'axios'
 
 export default {
   data: () => ({
+    API_CODE: '97dafb82fa2649799bd6aa668b4e94f6',
     valid: true,
     successmsg: false,
     name: '',
     nameRules: [
       v => !!v || 'Name is required'
     ],
-    salary: '',
-    salaryRules: [
-      v => !!v || 'Salary is required'
+    colour: '',
+    colourRules: [
+      v => !!v || 'Colour is required'
     ],
     age: '',
     ageRules: [
       v => !!v || 'Age is required'
-    ],
-    country: '',
-    countryRules: [
-      v => !!v || 'Country is required'
-    ],
-    avatar: '',
-    avatarRules: [
-      v => !!v || 'Image is required'
     ]
   }),
 
@@ -107,13 +100,11 @@ export default {
     validate () {
       if (this.$refs.form.validate()) {
         console.log(this.name)
-        console.log(this.email)
+        console.log(this.colour)
         console.log(this.age)
-        console.log(this.country)
-        console.log(this.avatar)
         const empdata = {
           name: this.name,
-          salary: this.email,
+          colour: this.colour,
           age: this.age
         }
         // const headers = {
@@ -121,9 +112,12 @@ export default {
         //   'Access-Control-Allow-Origin': '*',
         //   'Content-Type': 'application/json'
         // }
-        axios.post('https://dummy.restapiexample.com/api/v1/create', empdata).then((res) => {
+        axios.post(`https://crudcrud.com/api/${this.API_CODE}/test`, empdata).then((res) => {
           console.log(res)
           this.successmsg = true
+          this.name = ''
+          this.colour = ''
+          this.age = ''
         }).catch((err) => {
           console.log(err)
         })
